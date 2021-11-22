@@ -1,15 +1,25 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <h1>SHIT</h1>
+  <div class="grid md:grid-flow-col grid-cols-4 grid-rows-1 gap-4">
+    <div class="bg-yellow-300">1
+      <h1 v-for="el in list" :key="el">
+        {{ el }}
+      </h1>
+    </div>
+    <div class="max-h-screen bg-blue-600">2</div>
+    <div>3</div>
+    <div class="max-h-screen border-8">4</div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
 export default {
   name: "App",
-  components: {
-    HelloWorld,
+  components: {},
+  data() {
+    return {
+      list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    };
   },
 };
 </script>

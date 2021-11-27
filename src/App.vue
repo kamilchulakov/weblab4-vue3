@@ -54,17 +54,18 @@
       <div class="text-center bg-white p-6">
         <span class="font-display text-4xl font-bold text-blue-600">form</span>
       </div>
-
-        <!--        <img-->
-        <!--          class="mx-auto"-->
-        <!--          src="https://img.tineye.com/flickr-images/?filepath=labs-flickr-public/images/82/4725096544_824f727b53_m.jpg&size=101&size=1000"-->
-        <!--          alt="sunflower"-->
-        <!--        />-->
     </div>
     <div class="min-h-full bg-blue-600 p-6 flex-grow">
       <form class="shadow-md rounded pt-6 pb-8 mb-4 bg-blue-600">
+        <template v-if="errors.length">
+          <b>Please fix this errors:</b>
+          <ul>
+            <li v-for="error in errors" :key="error">{{ error }}</li>
+          </ul>
+        </template>
         <span class="text-white font-body font-bold">Type X</span>
         <input
+          v-model="formX"
           class="
             mb-4
             block
@@ -80,6 +81,7 @@
         />
         <span class="text-white font-body font-bold">Type Y</span>
         <input
+          v-model="formY"
           class="
             mb-4
             block
@@ -95,6 +97,7 @@
         />
         <span class="text-white font-body font-bold">Type R</span>
         <input
+          v-model="formR"
           class="
             mb-4
             block
@@ -110,8 +113,8 @@
         />
         <button
           class="
-            inline-flex
-            items-center
+            mr-8
+            mb-1
             py-2
             px-4
             border border-transparent
@@ -132,16 +135,37 @@
             focus:ring-gray-500
           "
           type="button"
-          @click.stop="submitF(20)"
+          @click.stop="submitForm()"
         >
           Submit
         </button>
+        <button
+          class="
+            py-2
+            px-4
+            border border-transparent
+            shadow-sm
+            text-sm
+            leading-4
+            font-display font-bold
+            text-xl
+            rounded-full
+            text-white
+            bg-gray-600
+            hover:bg-gray-700
+            transition-colors
+            duration-300
+            focus:outline-none
+            focus:ring-2
+            focus:ring-offset-2
+            focus:ring-gray-500
+          "
+          type="button"
+          @click.stop="list = []"
+        >
+          Clear
+        </button>
       </form>
-      <!--      <img-->
-      <!--        class="mx-auto"-->
-      <!--        src="https://upload.wikimedia.org/wikipedia/commons/d/d9/%D0%A7%D1%91%D1%80%D0%BD%D1%8B%D0%B9_%D1%81%D1%83%D0%BF%D1%80%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D0%BA%D0%B2%D0%B0%D0%B4%D1%80%D0%B0%D1%82._1915._%D0%93%D0%A2%D0%93.png"-->
-      <!--        alt="malevich"-->
-      <!--      />-->
     </div>
     <div class="flex-grow">
       <table class="min-w-full divide-y divide-gray-200">
@@ -163,12 +187,13 @@
         </tbody>
       </table>
     </div>
-    <div class="max-h-screen border-8">
-      <img
-        class="mx-auto"
-        src="https://media.geeksforgeeks.org/wp-content/uploads/20200525212003/About-Origin.png"
-        alt="malevich"
-      />
+    <div class="flex-grow min-h-full border-8 min-w-max">
+      <div class="bg-blue-100 min-w-full min-h-full">
+        <svg
+          style="height: 300px; width: 300px">
+          <circle r="5" cy="100" cx="100" v-for="point in list" :key="point"/>
+        </svg>
+      </div>
     </div>
   </div>
 </template>
@@ -179,7 +204,10 @@ export default {
   components: {},
   data() {
     return {
-      lastNum: 0,
+      formX: undefined,
+      formY: undefined,
+      formR: undefined,
+      errors: [],
       list: [
         { x: 1, y: 1, r: 1, inside: true },
         { x: 2, y: 1, r: 1, inside: false },
@@ -191,8 +219,21 @@ export default {
   },
 
   methods: {
-    submitF(num) {
-      this.list.push(num);
+    submitForm() {
+      this.errors = [];
+      if (!this.formX) this.errors.push("Type X");
+      if (!this.formY) this.errors.push("Type Y");
+      if (!this.formR) this.errors.push("Type R");
+      if (this.errors.length === 0)
+        this.list.push({
+          x: this.formX,
+          y: this.formY,
+          r: this.formR,
+          inside: this.isInside(),
+        });
+    },
+    isInside() {
+      return true;
     },
   },
 };

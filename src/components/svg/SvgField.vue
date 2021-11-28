@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import SvgLineWithText from "@/components/SvgLineWithText";
+import SvgLineWithText from "@/components/svg/SvgLineWithText";
 export default {
   name: "SvgField",
   components: { SvgLineWithText },

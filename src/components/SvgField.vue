@@ -1,8 +1,9 @@
 <template>
-  <svg class="" style="height: 300px; width: 300px">
-    <polygon fill="#feab6b" fill-opacity="1" points="150,200 250,150 150,150"/>
-    <rect fill="#feab6b" fill-opacity="1" x="150" y="50" height="100" width="100"/>
-    <g transform="translate(150,150)">
+  <svg class="" :height="svgSize + 'px'" :width="svgSize + 'px'">
+    // To-Do: refactor this to computed array join
+    <polygon fill="#feab6b" fill-opacity="1" :points="svgHalf+','+(svgHalf+svgR)+' '+(svgHalf+svgR*2)+','+svgHalf+' '+svgHalf+','+svgHalf"/>
+    <rect fill="#feab6b" fill-opacity="1" :x="svgHalf" :y="svgR" :height="svgR*2" :width="svgR*2"/>
+    <g :transform="'translate(' + svgHalf + ','+ svgHalf + ')'">
       <path d="M0 0 -50 0 A50 50 0 0 1 0 -50" fill="#feab6b"/>
     </g>
     <line stroke="black" x1="0" x2="300" y1="150" y2="150"></line>
@@ -45,6 +46,22 @@
 
 <script>
 export default {
-  name: "SvgField"
+  name: "SvgField",
+  props: {
+    svgSize: {
+      type: Number,
+      required: true,
+      default: 300,
+    }
+  },
+
+  computed: {
+    svgR() {
+      return this.svgSize / 6;
+    },
+    svgHalf() {
+      return this.svgSize / 2;
+    },
+  },
 };
 </script>

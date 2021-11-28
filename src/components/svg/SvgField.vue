@@ -1,5 +1,5 @@
 <template>
-  <svg class="" :height="svgSize + 'px'" :width="svgSize + 'px'">
+  <svg class="border-8" :height="svgSize + 'px'" :width="svgSize + 'px'">
     // To-Do: refactor this to computed array join
     <polygon
       fill="#feab6b"
@@ -27,32 +27,57 @@
       :width="svgR * 2"
     />
     <g :transform="'translate(' + svgHalf + ',' + svgHalf + ')'">
-      <path d="M0 0 -50 0 A50 50 0 0 1 0 -50" fill="#feab6b" />
+      <path :d="'M0 0 -'+svgR+' 0 A'+svgR+' '+svgR+' 0 0 1 0 -'+svgR" fill="#feab6b" />
     </g>
-    <line stroke="black" x1="0" x2="300" y1="150" y2="150"></line>
-    <line stroke="black" x1="150" x2="150" y1="0" y2="300"></line>
+    <line stroke="black" :x1="0" :x2="svgSize" :y1="svgHalf" :y2="svgHalf"></line>
+    <line stroke="black" :x1="svgHalf" :x2="svgHalf" :y1="0" :y2="svgSize"></line>
 
-    <SvgLineWithText :x1="250" :x2="250" :y1="148" :y2="152" text="R" />
-    <SvgLineWithText :x1="200" :x2="200" :y1="148" :y2="152" text="R/2" />
-    <SvgLineWithText :x1="100" :x2="100" :y1="148" :y2="152" text="-R/2" />
-    <SvgLineWithText :x1="50" :x2="50" :y1="148" :y2="152" text="-R" />
-    <SvgLineWithText :x1="148" :x2="152" :y1="50" :y2="50" text="R" />
-    <SvgLineWithText :x1="148" :x2="152" :y1="100" :y2="100" text="R/2" />
-    <SvgLineWithText text="-R/2" :y2="200" :y1="200" :x2="152" :x1="148" />
-    <SvgLineWithText :x1="148" :x2="152" :y1="250" :y2="250" text="-R" />
+    <SvgLineWithText :x1="svgSize-svgR" :x2="svgSize-svgR" :y1="svgHalf-2" :y2="svgHalf+2" text="R" />
+    <SvgLineWithText :x1="svgSize-2*svgR" :x2="svgSize-2*svgR" :y1="svgHalf-2" :y2="svgHalf+2" text="R/2" />
+    <SvgLineWithText :x1="2 * svgR" :x2="2 * svgR" :y1="svgHalf-2" :y2="svgHalf-2" text="-R/2" />
+    <SvgLineWithText :x1="svgR" :x2="svgR" :y1="svgHalf-2" :y2="svgHalf+2" text="-R" />
 
-    <circle r="2" stroke="black" cx="150" cy="150"></circle>
+    <SvgLineWithText :x1="svgHalf-2" :x2="svgHalf+2" :y1="svgR" :y2="svgR" text="R" />
+    <SvgLineWithText :x1="svgHalf-2" :x2="svgHalf+2" :y1="2 * svgR" :y2="2 * svgR" text="R/2" />
+    <SvgLineWithText :x2="svgHalf+2" :x1="svgHalf-2" text="-R/2" :y2="svgSize-2*svgR" :y1="svgSize-2*svgR" />
+    <SvgLineWithText :x1="svgHalf-2" :x2="svgHalf+2" :y1="svgSize-svgR" :y2="svgSize-svgR" text="-R" />
+
+    <circle r="2" stroke="black" :cx="svgHalf" :cy="svgHalf"/>
 
     <polygon
       fill="black"
-      points="300,150 295,145 295,155"
+      :points="
+        svgSize +
+        ',' +
+        svgHalf +
+        ' ' +
+        (svgSize - 5) +
+        ',' +
+        (svgHalf - 5) +
+        ' ' +
+        (svgSize - 5) +
+        ',' +
+        (svgHalf + 5)
+      "
       stroke="black"
-    ></polygon>
+    />
     <polygon
       fill="black"
-      points="150,0  145,5   155,5"
+      :points="
+        svgHalf +
+        ',' +
+        0 +
+        ' ' +
+        (svgHalf - 5) +
+        ',' +
+        5 +
+        ' ' +
+        (svgHalf + 5) +
+        ',' +
+        5
+      "
       stroke="black"
-    ></polygon>
+    />
     <slot></slot>
   </svg>
 </template>

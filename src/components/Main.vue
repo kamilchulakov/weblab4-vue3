@@ -1,5 +1,7 @@
 <template class="bg-not-white">
-  <div class="flex grid-cols-4 content-between font-display flex-wrap min-w-full">
+  <div
+    class="flex grid-cols-4 content-between font-display flex-wrap min-w-full"
+  >
     <div class="flex-grow bg-empty-block min-h-full">
       <div class="text-center bg-white p-6">
         <span class="text-4xl font-bold text-black">form</span>
@@ -121,7 +123,11 @@
         </button>
       </form>
     </div>
-    <div class="flex-grow bg-table-color" style="min-width: 150px" v-if="list.length > 0">
+    <div
+      class="flex-grow bg-table-color md:w-1/3"
+      style="min-width: 150px"
+      v-if="list.length > 0"
+    >
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
           <tr>
@@ -132,7 +138,12 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-          <tr v-for="(point, idx) in list" :key="idx" class="text-center" :class="{'bg-empty-block': idx === list.length - 1}">
+          <tr
+            v-for="(point, idx) in list"
+            :key="idx"
+            class="text-center"
+            :class="{ 'bg-empty-block': idx === list.length - 1 }"
+          >
             <td>{{ point.x }}</td>
             <td>{{ point.y }}</td>
             <td>{{ point.r }}</td>
@@ -141,9 +152,21 @@
         </tbody>
       </table>
     </div>
-    <div class="min-h-full border-8 min-w-max">
-      <SvgField onresize="console.log(this.sizeX)">
-        <circle r="3" :cy="this.calcY(point.y)" :cx="calcX(point.x)" v-for="point in list" :key="point" :class="{'fill-empty-block': point.inside, 'fill-black': !point.inside}"/>
+    <div class="min-h-full min-w-max">
+      <SvgField :svg-size="svgSize" @reset="console.log(this.sizeX)">
+        <template v-if="formR">
+          <circle
+            r="3"
+            :cy="this.calcY(point.y)"
+            :cx="calcX(point.x)"
+            v-for="point in list"
+            :key="point"
+            :class="{
+              'fill-empty-block': point.inside,
+              'fill-black': !point.inside,
+            }"
+          />
+        </template>
       </SvgField>
     </div>
   </div>
@@ -162,7 +185,7 @@ export default {
       formX: undefined,
       formY: undefined,
       formR: undefined,
-      svgSize: 300,
+      svgSize: 0,
       errors: [],
       list: [
         { x: 1, y: 1, r: 1, inside: true },
@@ -172,6 +195,17 @@ export default {
         { x: 4, y: 1, r: 1, inside: true },
       ],
     };
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      this.onResize();
+      window.addEventListener("resize", this.onResize);
+    });
+  },
+
+  beforeUnmount() {
+    window.removeEventListener("resize", this.onResize);
   },
 
   methods: {
@@ -203,12 +237,20 @@ export default {
     },
 
     calcX(x) {
-      return (x * 2) / this.formR * this.svgR + this.svgHalf;
+      return ((x * 2) / this.formR) * this.svgR + this.svgHalf;
     },
 
     calcY(y) {
-      return this.svgHalf - (y * 2) / this.formR * this.svgR
-    }
+      return this.svgHalf - ((y * 2) / this.formR) * this.svgR;
+    },
+
+    onResize() {
+      if (window.innerWidth > 800) this.svgSize = 500;
+      else {
+        if (window.innerWidth > 600) this.svgSize = 400;
+        else this.svgSize = 300;
+      }
+    },
   },
   computed: {
     svgR() {
@@ -234,7 +276,7 @@ export default {
       if (this.formR.includes(",")) {
         this.formR = this.formR.replace(",", ".");
       }
-    }
+    },
   },
 };
 </script>

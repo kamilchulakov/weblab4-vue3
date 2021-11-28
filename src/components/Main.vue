@@ -1,11 +1,8 @@
-<template>
+<template class="bg-not-white">
   <header>
     <nav class="flex bg-white py-2 md:py-4">
       <div class="container px-4 mx-auto md:flex md:items-center flex-shrink-0">
-        <div
-          class="flex-col mt-3 md:mt-0"
-          id="navbar-collapse"
-        >
+        <div class="flex-col mt-3 md:mt-0" id="navbar-collapse">
           <a
             class="
               p-2
@@ -14,10 +11,10 @@
               md:mx-2
               text-white
               rounded
-              bg-blue-600
+              bg-empty-block
               hover:bg-blue-800
             "
-          >Home</a
+            >Home</a
           >
           <a
             class="
@@ -31,7 +28,7 @@
               transition-colors
               duration-300
             "
-          >Lab</a
+            >Lab</a
           >
           <a
             class="
@@ -45,19 +42,19 @@
               transition-colors
               duration-300
             "
-          >About</a
+            >About</a
           >
         </div>
       </div>
     </nav>
   </header>
-  <div class="flex grid-cols-4 content-between flex-wrap min-w-full">
-    <div class="flex-grow bg-yellow-300 min-h-full">
+  <div class="flex grid-cols-4 content-between font-display flex-wrap min-w-full">
+    <div class="flex-grow bg-empty-block min-h-full">
       <div class="text-center bg-white p-6">
-        <span class="font-display text-4xl font-bold text-blue-600">form</span>
+        <span class="text-4xl font-bold text-black">form</span>
       </div>
     </div>
-    <div class="min-h-full bg-blue-600 p-6 flex-grow">
+    <div class="min-h-full bg-form-color p-6 flex-grow">
       <form class="shadow-md rounded pt-6 pb-8 mb-4">
         <template v-if="errors.length">
           <b>Please fix this errors:</b>
@@ -73,6 +70,7 @@
             block
             w-full
             text-center
+            shadow-md
             border-4 border-gray-300
             text-gray-900
             focus:outline-none focus:ring-gray-500 focus:border-gray-500
@@ -88,6 +86,7 @@
             mb-4
             block
             w-full
+            shadow-md
             text-center
             border-4 border-gray-300
             text-gray-900
@@ -103,6 +102,7 @@
           class="
             mb-4
             block
+            shadow-md
             w-full
             text-center
             border-4 border-gray-300
@@ -119,6 +119,7 @@
             mb-1
             py-2
             px-4
+            shadow-md
             border border-transparent
             shadow-sm
             text-sm
@@ -169,30 +170,30 @@
         </button>
       </form>
     </div>
-    <div class="flex-grow">
+    <div class="flex-grow bg-table-color" style="min-width: 120px">
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
-        <tr>
-          <th>X</th>
-          <th>Y</th>
-          <th>R</th>
-          <th>Inside</th>
-        </tr>
+          <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>R</th>
+            <th>Inside</th>
+          </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-        <tr v-for="point in list" :key="point" class="text-center">
-          <td>{{ point.x }}</td>
-          <td>{{ point.y }}</td>
-          <td>{{ point.r }}</td>
-          <td>{{ point.inside }}</td>
-        </tr>
+          <tr v-for="point in list" :key="point" class="text-center">
+            <td>{{ point.x }}</td>
+            <td>{{ point.y }}</td>
+            <td>{{ point.r }}</td>
+            <td>{{ point.inside }}</td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <div class="min-h-full border-8 min-w-max bg-gray-400">
-      <svg class="" style="height: 300px; width: 300px">
+    <div class="min-h-full border-8 min-w-max">
+      <SvgField onresize="console.log(this.sizeX)">
         <circle r="5" cy="100" cx="100" v-for="point in list" :key="point" />
-      </svg>
+      </SvgField>
     </div>
   </div>
   <footer>
@@ -201,9 +202,10 @@
 </template>
 
 <script>
+import SvgField from "@/components/SvgField";
 export default {
   name: "Main",
-  components: {},
+  components: { SvgField },
   data() {
     return {
       formX: undefined,
@@ -223,9 +225,17 @@ export default {
   methods: {
     submitForm() {
       this.errors = [];
+      // Text (-5 ... 5) для координаты по оси X, Text (-3 ... 3) для координаты по оси Y, и Text (-5 ... 5) для задания радиуса области.
       if (!this.formX) this.errors.push("Type X");
+      else if (this.formX > 5 || this.formX < -5)
+        this.errors.push("X should be in [-5, 5]");
+
       if (!this.formY) this.errors.push("Type Y");
+      else if (this.formY > 3 || this.formY < -3)
+        this.errors.push("Y should be in [-3, 3]");
       if (!this.formR) this.errors.push("Type R");
+      else if (this.formR > 5 || this.formR < -5)
+        this.errors.push("R should be in [-5, 5]");
       if (this.errors.length === 0)
         this.list.push({
           x: this.formX,
@@ -240,4 +250,3 @@ export default {
   },
 };
 </script>
-

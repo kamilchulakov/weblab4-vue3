@@ -2,11 +2,11 @@
 
 ## To-DO
 ```
-- Nice validation
-- Dynamic SVG rerender
-- Redraw on R change
-- Auth
-- Refactor: replaces, components
+[x] Nice validation 
+[ ] Dynamic SVG rerender
+[ ] Redraw on R change
+[ ] Auth
+[ ] Refactor: replaces, components
 ```
 
 ## Project setup

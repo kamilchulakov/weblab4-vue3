@@ -170,7 +170,7 @@
         </button>
       </form>
     </div>
-    <div class="flex-grow bg-table-color" style="min-width: 120px">
+    <div class="flex-grow bg-table-color" style="min-width: 150px" v-if="list.length > 0">
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
           <tr>
@@ -181,7 +181,7 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-          <tr v-for="point in list" :key="point" class="text-center">
+          <tr v-for="(point, idx) in list" :key="idx" class="text-center" :class="{'bg-empty-block': idx === list.length - 1}">
             <td>{{ point.x }}</td>
             <td>{{ point.y }}</td>
             <td>{{ point.r }}</td>
@@ -192,7 +192,7 @@
     </div>
     <div class="min-h-full border-8 min-w-max">
       <SvgField onresize="console.log(this.sizeX)">
-        <circle r="5" cy="100" cx="100" v-for="point in list" :key="point" />
+        <circle r="3" :cy="this.calcY(point.y)" :cx="calcX(point.x)" v-for="point in list" :key="point" :class="{'fill-empty-block': point.inside, 'fill-black': !point.inside}"/>
       </SvgField>
     </div>
   </div>
@@ -210,7 +210,8 @@ export default {
     return {
       formX: undefined,
       formY: undefined,
-      formR: undefined,
+      formR: 1,
+      svgSize: 300,
       errors: [],
       list: [
         { x: 1, y: 1, r: 1, inside: true },
@@ -249,7 +250,24 @@ export default {
     isInside() {
       return true;
     },
+
+    calcX(x) {
+      return (x * 2) / this.formR * this.svgR + this.svgHalf;
+    },
+
+    calcY(y) {
+      return this.svgHalf - (y * 2) / this.formR * this.svgR
+    }
   },
+  computed: {
+    svgR() {
+      return this.svgSize / 6;
+    },
+    svgHalf() {
+      return this.svgSize / 2;
+    },
+  },
+
   watch: {
     formX() {
       if (this.formX.includes(",")) {
@@ -266,6 +284,6 @@ export default {
         this.formR = this.formR.replace(",", ".");
       }
     }
-  }
+  },
 };
 </script>

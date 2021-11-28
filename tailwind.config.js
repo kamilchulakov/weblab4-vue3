@@ -27,6 +27,10 @@ module.exports = {
       ...theme('colors'),
       'empty-text-color': "#e76f3d",
     }),
+    ring: theme => ({
+      ...theme('colors'),
+      'empty-block': "#e76f3d",
+    }),
   },
   variants: {
     extend: {},

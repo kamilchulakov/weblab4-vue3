@@ -197,6 +197,14 @@ export default {
     };
   },
 
+  props: {
+    devMode: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+  },
+
   mounted() {
     this.$nextTick(() => {
       this.onResize();
@@ -245,10 +253,11 @@ export default {
     },
 
     onResize() {
-      if (window.innerWidth > 800) this.svgSize = 500;
+      if (window.innerWidth > 1300) this.svgSize = 400;
       else {
-        if (window.innerWidth > 600) this.svgSize = 400;
-        else this.svgSize = 300;
+        // if (window.innerWidth > 800) this.svgSize = 350;
+        //else
+        this.svgSize = 300;
       }
     },
   },
@@ -275,6 +284,14 @@ export default {
     formR() {
       if (this.formR.includes(",")) {
         this.formR = this.formR.replace(",", ".");
+      }
+      if (!this.devMode) {
+        if (this.formR > 5) {
+          this.formR = this.formR[0];
+        }
+        if (this.formR < -5) {
+          this.formR = this.formR[0];
+        }
       }
     },
   },

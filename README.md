@@ -5,7 +5,8 @@
 [x] Nice validation 
 [x] Tabs Navigation
 [ ] Local Storage
-[ ] Developer Mode (for big R)
+[x] Developer Mode (for big R)
+[ ] Github Page
 [x] Dynamic SVG rerender
 [x] Redraw on R change
 [ ] Auth + Auth Page

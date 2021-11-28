@@ -1,53 +1,4 @@
 <template class="bg-not-white">
-  <header>
-    <nav class="flex bg-white py-2 md:py-4">
-      <div class="container px-4 mx-auto md:flex md:items-center flex-shrink-0">
-        <div class="flex-col mt-3 md:mt-0" id="navbar-collapse">
-          <a
-            class="
-              p-2
-              font-display
-              text-lg
-              md:mx-2
-              text-white
-              rounded
-              bg-empty-block
-              hover:bg-blue-800
-            "
-            >Home</a
-          >
-          <a
-            class="
-              p-2
-              font-display
-              text-lg
-              md:mx-2
-              text-gray-600
-              rounded
-              hover:bg-gray-200 hover:text-gray-700
-              transition-colors
-              duration-300
-            "
-            >Lab</a
-          >
-          <a
-            class="
-              p-2
-              font-display
-              text-lg
-              md:mx-2
-              text-gray-600
-              rounded
-              hover:bg-gray-200 hover:text-gray-700
-              transition-colors
-              duration-300
-            "
-            >About</a
-          >
-        </div>
-      </div>
-    </nav>
-  </header>
   <div class="flex grid-cols-4 content-between font-display flex-wrap min-w-full">
     <div class="flex-grow bg-empty-block min-h-full">
       <div class="text-center bg-white p-6">
@@ -202,7 +153,7 @@
 </template>
 
 <script>
-import SvgField from "@/components/SvgField";
+import SvgField from "@/components/svg/SvgField";
 export default {
   name: "Main",
   components: { SvgField },
@@ -210,7 +161,7 @@ export default {
     return {
       formX: undefined,
       formY: undefined,
-      formR: 1,
+      formR: undefined,
       svgSize: 300,
       errors: [],
       list: [

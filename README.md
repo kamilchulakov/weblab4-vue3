@@ -5,6 +5,7 @@
 [x] Nice validation 
 [x] Tabs Navigation
 [ ] Local Storage
+[ ] URL Handling
 [x] Developer Mode (for big R)
 [x] Github Page
 [x] Dynamic SVG rerender

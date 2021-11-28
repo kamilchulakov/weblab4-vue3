@@ -6,7 +6,7 @@
 - Dynamic SVG rerender
 - Redraw on R change
 - Auth
-- Refactor
+- Refactor: replaces, components
 ```
 
 ## Project setup

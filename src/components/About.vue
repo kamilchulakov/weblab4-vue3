@@ -3,6 +3,7 @@
       <div class="bg-white min-w-full align-middle min-h-full">
         <p class="text-black text-display pt-6 pb-6 text-center">
           This is powered by Vue.js
+          ... and Github Pages :)
           <br>
           This is my web-programming lab
           <br>

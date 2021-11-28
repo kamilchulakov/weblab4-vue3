@@ -1,5 +1,14 @@
 # weblab4-design
 
+## To-DO
+```
+- Nice validation
+- Dynamic SVG rerender
+- Redraw on R change
+- Auth
+- Refactor
+```
+
 ## Project setup
 ```
 npm install

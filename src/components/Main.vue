@@ -250,5 +250,22 @@ export default {
       return true;
     },
   },
+  watch: {
+    formX() {
+      if (this.formX.includes(",")) {
+        this.formX = this.formX.replace(",", ".");
+      }
+    },
+    formY() {
+      if (this.formY.includes(",")) {
+        this.formY = this.formY.replace(",", ".");
+      }
+    },
+    formR() {
+      if (this.formR.includes(",")) {
+        this.formR = this.formR.replace(",", ".");
+      }
+    }
+  }
 };
 </script>

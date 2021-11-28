@@ -223,19 +223,21 @@ export default {
   },
 
   methods: {
+    validateByBorders(num, numName, a, b) {
+      if (!num) this.errors.push(`Type ${numName}`);
+      else {
+        if (isNaN(num)) this.errors.push(`${numName} must be number`);
+        else if (num > b || num < a) {
+          this.errors.push(`${numName} should be in [${a}, ${b}]`);
+        }
+      }
+    },
     submitForm() {
       this.errors = [];
       // Text (-5 ... 5) для координаты по оси X, Text (-3 ... 3) для координаты по оси Y, и Text (-5 ... 5) для задания радиуса области.
-      if (!this.formX) this.errors.push("Type X");
-      else if (this.formX > 5 || this.formX < -5)
-        this.errors.push("X should be in [-5, 5]");
-
-      if (!this.formY) this.errors.push("Type Y");
-      else if (this.formY > 3 || this.formY < -3)
-        this.errors.push("Y should be in [-3, 3]");
-      if (!this.formR) this.errors.push("Type R");
-      else if (this.formR > 5 || this.formR < -5)
-        this.errors.push("R should be in [-5, 5]");
+      this.validateByBorders(this.formX, "X", -5, 5);
+      this.validateByBorders(this.formY, "Y", -3, 3);
+      this.validateByBorders(this.formR, "R", -5, 5);
       if (this.errors.length === 0)
         this.list.push({
           x: this.formX,

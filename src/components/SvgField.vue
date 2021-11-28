@@ -1,9 +1,9 @@
 <template>
   <svg class="" style="height: 300px; width: 300px">
-    <polygon fill="#feab6b" fill-opacity="1" points="150,210 270,150 150,150"/>
-    <rect fill="#feab6b" fill-opacity="1" x="150" y="30" height="120" width="120"/>
+    <polygon fill="#feab6b" fill-opacity="1" points="150,200 250,150 150,150"/>
+    <rect fill="#feab6b" fill-opacity="1" x="150" y="50" height="100" width="100"/>
     <g transform="translate(150,150)">
-      <path d="M0 0 -60 0 A60 60 0 0 1 0 -60" fill="#feab6b"/>
+      <path d="M0 0 -50 0 A50 50 0 0 1 0 -50" fill="#feab6b"/>
     </g>
     <line stroke="black" x1="0" x2="300" y1="150" y2="150"></line>
     <line stroke="black" x1="150" x2="150" y1="0" y2="300"></line>

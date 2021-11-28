@@ -4,6 +4,7 @@
 ```
 [x] Nice validation 
 [x] Tabs Navigation
+[ ] Local Storage
 [ ] Dynamic SVG rerender
 [ ] Redraw on R change
 [ ] Auth

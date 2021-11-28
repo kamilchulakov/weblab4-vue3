@@ -6,7 +6,7 @@
 [x] Tabs Navigation
 [ ] Local Storage
 [x] Developer Mode (for big R)
-[ ] Github Page
+[x] Github Page
 [x] Dynamic SVG rerender
 [x] Redraw on R change
 [ ] Auth + Auth Page

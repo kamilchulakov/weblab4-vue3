@@ -5,9 +5,10 @@
 [x] Nice validation 
 [x] Tabs Navigation
 [ ] Local Storage
-[ ] Dynamic SVG rerender
-[ ] Redraw on R change
-[ ] Auth
+[ ] Developer Mode (for big R)
+[x] Dynamic SVG rerender
+[x] Redraw on R change
+[ ] Auth + Auth Page
 [ ] Refactor: replaces, components
 ```
 

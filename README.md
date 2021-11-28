@@ -3,6 +3,7 @@
 ## To-DO
 ```
 [x] Nice validation 
+[ ] Tabs
 [ ] Dynamic SVG rerender
 [ ] Redraw on R change
 [ ] Auth

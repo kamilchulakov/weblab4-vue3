@@ -27,22 +27,85 @@
       :width="svgR * 2"
     />
     <g :transform="'translate(' + svgHalf + ',' + svgHalf + ')'">
-      <path :d="'M0 0 -'+svgR+' 0 A'+svgR+' '+svgR+' 0 0 1 0 -'+svgR" fill="#feab6b" />
+      <path
+        :d="'M0 0 -' + svgR + ' 0 A' + svgR + ' ' + svgR + ' 0 0 1 0 -' + svgR"
+        fill="#feab6b"
+      />
     </g>
-    <line stroke="black" :x1="0" :x2="svgSize" :y1="svgHalf" :y2="svgHalf"></line>
-    <line stroke="black" :x1="svgHalf" :x2="svgHalf" :y1="0" :y2="svgSize"></line>
+    <line
+      stroke="black"
+      :x1="0"
+      :x2="svgSize"
+      :y1="svgHalf"
+      :y2="svgHalf"
+    ></line>
+    <line
+      stroke="black"
+      :x1="svgHalf"
+      :x2="svgHalf"
+      :y1="0"
+      :y2="svgSize"
+    ></line>
 
-    <SvgLineWithText :x1="svgSize-svgR" :x2="svgSize-svgR" :y1="svgHalf-2" :y2="svgHalf+2" text="R" />
-    <SvgLineWithText :x1="svgSize-2*svgR" :x2="svgSize-2*svgR" :y1="svgHalf-2" :y2="svgHalf+2" text="R/2" />
-    <SvgLineWithText :x1="2 * svgR" :x2="2 * svgR" :y1="svgHalf-2" :y2="svgHalf-2" text="-R/2" />
-    <SvgLineWithText :x1="svgR" :x2="svgR" :y1="svgHalf-2" :y2="svgHalf+2" text="-R" />
+    <SvgLineWithText
+      :x1="svgSize - svgR"
+      :x2="svgSize - svgR"
+      :y1="svgHalf - 2"
+      :y2="svgHalf + 2"
+      text="R"
+    />
+    <SvgLineWithText
+      :x1="svgSize - 2 * svgR"
+      :x2="svgSize - 2 * svgR"
+      :y1="svgHalf - 2"
+      :y2="svgHalf + 2"
+      text="R/2"
+    />
+    <SvgLineWithText
+      :x1="2 * svgR"
+      :x2="2 * svgR"
+      :y1="svgHalf - 2"
+      :y2="svgHalf - 2"
+      text="-R/2"
+    />
+    <SvgLineWithText
+      :x1="svgR"
+      :x2="svgR"
+      :y1="svgHalf - 2"
+      :y2="svgHalf + 2"
+      text="-R"
+    />
 
-    <SvgLineWithText :x1="svgHalf-2" :x2="svgHalf+2" :y1="svgR" :y2="svgR" text="R" />
-    <SvgLineWithText :x1="svgHalf-2" :x2="svgHalf+2" :y1="2 * svgR" :y2="2 * svgR" text="R/2" />
-    <SvgLineWithText :x2="svgHalf+2" :x1="svgHalf-2" text="-R/2" :y2="svgSize-2*svgR" :y1="svgSize-2*svgR" />
-    <SvgLineWithText :x1="svgHalf-2" :x2="svgHalf+2" :y1="svgSize-svgR" :y2="svgSize-svgR" text="-R" />
+    <SvgLineWithText
+      :x1="svgHalf - 2"
+      :x2="svgHalf + 2"
+      :y1="svgR"
+      :y2="svgR"
+      text="R"
+    />
+    <SvgLineWithText
+      :x1="svgHalf - 2"
+      :x2="svgHalf + 2"
+      :y1="2 * svgR"
+      :y2="2 * svgR"
+      text="R/2"
+    />
+    <SvgLineWithText
+      :x2="svgHalf + 2"
+      :x1="svgHalf - 2"
+      text="-R/2"
+      :y2="svgSize - 2 * svgR"
+      :y1="svgSize - 2 * svgR"
+    />
+    <SvgLineWithText
+      :x1="svgHalf - 2"
+      :x2="svgHalf + 2"
+      :y1="svgSize - svgR"
+      :y2="svgSize - svgR"
+      text="-R"
+    />
 
-    <circle r="2" stroke="black" :cx="svgHalf" :cy="svgHalf"/>
+    <circle r="2" stroke="black" :cx="svgHalf" :cy="svgHalf" />
 
     <polygon
       fill="black"

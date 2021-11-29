@@ -11,6 +11,7 @@
 [x] Dynamic SVG rerender
 [x] Redraw on R change
 [ ] Auth + Auth Page
+[ ] Shared Worker for Network
 [ ] Refactor: replaces, components
 ```
 

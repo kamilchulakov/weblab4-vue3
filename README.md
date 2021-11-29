@@ -13,6 +13,7 @@
 [ ] Auth + Auth Page
 [ ] Shared Worker for Network
 [ ] Refactor: replaces, components
+[ ] Use variant screen resolutions
 ```
 
 ## Project setup

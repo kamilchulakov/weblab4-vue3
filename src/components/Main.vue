@@ -17,7 +17,7 @@
         </template>
         <span class="text-white font-body font-bold">Type X</span>
         <input
-          v-model="formX"
+          v-model.trim="formX"
           class="
             mb-4
             block
@@ -34,7 +34,7 @@
         />
         <span class="text-white font-body font-bold">Type Y</span>
         <input
-          v-model="formY"
+          v-model.trim="formY"
           class="
             mb-4
             block
@@ -51,7 +51,7 @@
         />
         <span class="text-white font-body font-bold">Type R</span>
         <input
-          v-model="formR"
+          v-model.trim="formR"
           class="
             mb-4
             block

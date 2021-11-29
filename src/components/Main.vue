@@ -123,6 +123,23 @@
         </button>
       </form>
     </div>
+    <div class="min-h-full min-w-max">
+      <SvgField :svg-size="svgSize" @reset="console.log(this.sizeX)">
+        <template v-if="formR">
+          <circle
+            r="3"
+            :cy="this.calcY(point.y)"
+            :cx="calcX(point.x)"
+            v-for="point in list"
+            :key="point"
+            :class="{
+              'fill-empty-block': point.inside,
+              'fill-black': !point.inside,
+            }"
+          />
+        </template>
+      </SvgField>
+    </div>
     <div
       class="flex-grow bg-table-color md:w-1/3"
       style="min-width: 150px"
@@ -151,23 +168,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="min-h-full min-w-max">
-      <SvgField :svg-size="svgSize" @reset="console.log(this.sizeX)">
-        <template v-if="formR">
-          <circle
-            r="3"
-            :cy="this.calcY(point.y)"
-            :cx="calcX(point.x)"
-            v-for="point in list"
-            :key="point"
-            :class="{
-              'fill-empty-block': point.inside,
-              'fill-black': !point.inside,
-            }"
-          />
-        </template>
-      </SvgField>
     </div>
   </div>
   <footer>

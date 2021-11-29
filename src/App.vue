@@ -4,19 +4,19 @@
       <div class="container px-4 mx-auto md:flex md:items-center flex-shrink-0">
         <div class="flex-col mt-3 md:mt-0" id="navbar-collapse">
           <Nava
-            text="Main"
-            :curr="tabName === 'Main'"
-            @click="this.tabName = 'Main'"
+            :text="t('main')"
+            :curr="tabName === 'main'"
+            @click="this.tabName = 'main'"
           />
           <Nava
-            text="About"
-            :curr="tabName === 'About'"
-            @click="this.tabName = 'About'"
+            :text="t('about')"
+            :curr="tabName === 'about'"
+            @click="this.tabName = 'about'"
           />
         </div>
       </div>
     </nav>
-    <label class="font-display"
+    <label class="font-display" v-if="false"
       ><input
         type="checkbox"
         class="
@@ -40,19 +40,27 @@
 import Main from "./components/Main.vue";
 import About from "@/components/About";
 import Nava from "@/components/NavButton";
+import { useI18n } from "vue-i18n";
 export default {
   name: "App",
   components: { Nava, Main, About },
+  setup() {
+    const { t } = useI18n({
+      inheritLocale: true,
+      useScope: "global",
+    });
+    return { t };
+  },
   data() {
     return {
-      tabName: "Main",
+      tabName: "main",
       devMode: false,
     };
   },
 
   computed: {
     tab() {
-      if (this.tabName === "Main") return Main;
+      if (this.tabName === "main") return Main;
       else return About;
     },
   },

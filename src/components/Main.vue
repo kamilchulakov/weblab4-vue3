@@ -4,7 +4,7 @@
   >
     <div class="flex-grow bg-empty-block min-h-full">
       <div class="text-center bg-white p-6">
-        <span class="text-4xl font-bold text-black">form</span>
+        <span class="text-4xl font-bold text-black">{{t("form")}}</span>
       </div>
     </div>
     <div class="min-h-full bg-form-color p-6 flex-grow">
@@ -15,7 +15,7 @@
             <li v-for="error in errors" :key="error">{{ error }}</li>
           </ul>
         </template>
-        <span class="text-white font-body font-bold">Type X</span>
+        <span class="text-white font-body font-bold">{{ t("type") }} X</span>
         <input
           v-model.trim="formX"
           class="
@@ -32,7 +32,7 @@
             rounded-md
           "
         />
-        <span class="text-white font-body font-bold">Type Y</span>
+        <span class="text-white font-body font-bold">{{ t("type") }} Y</span>
         <input
           v-model.trim="formY"
           class="
@@ -49,7 +49,7 @@
             rounded-md
           "
         />
-        <span class="text-white font-body font-bold">Type R</span>
+        <span class="text-white font-body font-bold">{{ t("type") }} R</span>
         <input
           v-model.trim="formR"
           class="
@@ -93,7 +93,7 @@
           type="button"
           @click.stop="submitForm()"
         >
-          Submit
+          {{ t("submit") }}
         </button>
         <button
           class="
@@ -119,7 +119,7 @@
           type="button"
           @click.stop="list = []"
         >
-          Clear
+          {{ t("clear") }}
         </button>
       </form>
     </div>
@@ -151,7 +151,7 @@
             <th>X</th>
             <th>Y</th>
             <th>R</th>
-            <th>Inside</th>
+            <th>{{ t("inside") }}</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
@@ -164,22 +164,30 @@
             <td>{{ point.x }}</td>
             <td>{{ point.y }}</td>
             <td>{{ point.r }}</td>
-            <td>{{ point.inside }}</td>
+            <td>{{ t(point.inside ? "true" : "false") }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
   <footer>
-    <h1>Powered by Vue.js</h1>
+    <h1>{{ t("powered") }}</h1>
   </footer>
 </template>
 
 <script>
 import SvgField from "@/components/svg/SvgField";
+import { useI18n } from "vue-i18n";
 export default {
   name: "Main",
   components: { SvgField },
+  setup() {
+    const { t } = useI18n({
+      inheritLocale: true,
+      useScope: "parent",
+    });
+    return { t };
+  },
   data() {
     return {
       formX: undefined,

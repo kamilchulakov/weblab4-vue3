@@ -1,4 +1,12 @@
 {
   "main": "Main",
-  "about": "About"
+  "about": "About",
+  "form": "form",
+  "powered": "Powered by Vue3.",
+  "true": "true",
+  "false": "false",
+  "type": "Type",
+  "inside": "Inside",
+  "submit": "Submit",
+  "clear": "Clear"
 }

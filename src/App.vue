@@ -41,6 +41,7 @@ import Main from "./components/Main.vue";
 import About from "@/components/About";
 import Nava from "@/components/NavButton";
 import { useI18n } from "vue-i18n";
+import { provide } from "vue";
 export default {
   name: "App",
   components: { Nava, Main, About },
@@ -49,6 +50,7 @@ export default {
       inheritLocale: true,
       useScope: "global",
     });
+    provide("i18nTeaGlobal", t);
     return { t };
   },
   data() {

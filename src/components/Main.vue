@@ -4,7 +4,9 @@
   >
     <div class="flex-grow bg-empty-block min-h-full">
       <div class="text-center bg-white p-6">
-        <span class="text-4xl font-bold text-black">{{t("form")}}</span>
+        <span class="text-4xl font-bold text-black">{{
+          i18nTeaGlobal("form")
+        }}</span>
       </div>
     </div>
     <div class="min-h-full bg-form-color p-6 flex-grow">
@@ -15,7 +17,9 @@
             <li v-for="error in errors" :key="error">{{ error }}</li>
           </ul>
         </template>
-        <span class="text-white font-body font-bold">{{ t("type") }} X</span>
+        <span class="text-white font-body font-bold"
+          >{{ i18nTeaGlobal("type") }} X</span
+        >
         <input
           v-model.trim="formX"
           class="
@@ -32,7 +36,9 @@
             rounded-md
           "
         />
-        <span class="text-white font-body font-bold">{{ t("type") }} Y</span>
+        <span class="text-white font-body font-bold"
+          >{{ i18nTeaGlobal("type") }} Y</span
+        >
         <input
           v-model.trim="formY"
           class="
@@ -49,7 +55,9 @@
             rounded-md
           "
         />
-        <span class="text-white font-body font-bold">{{ t("type") }} R</span>
+        <span class="text-white font-body font-bold"
+          >{{ i18nTeaGlobal("type") }} R</span
+        >
         <input
           v-model.trim="formR"
           class="
@@ -93,7 +101,7 @@
           type="button"
           @click.stop="submitForm()"
         >
-          {{ t("submit") }}
+          {{ i18nTeaGlobal("submit") }}
         </button>
         <button
           class="
@@ -119,7 +127,7 @@
           type="button"
           @click.stop="list = []"
         >
-          {{ t("clear") }}
+          {{ i18nTeaGlobal("clear") }}
         </button>
       </form>
     </div>
@@ -151,7 +159,7 @@
             <th>X</th>
             <th>Y</th>
             <th>R</th>
-            <th>{{ t("inside") }}</th>
+            <th>{{ i18nTeaGlobal("inside") }}</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
@@ -164,29 +172,26 @@
             <td>{{ point.x }}</td>
             <td>{{ point.y }}</td>
             <td>{{ point.r }}</td>
-            <td>{{ t(point.inside ? "true" : "false") }}</td>
+            <td>{{ i18nTeaGlobal(point.inside ? "true" : "false") }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
   <footer>
-    <h1>{{ t("powered") }}</h1>
+    <h1>{{ i18nTeaGlobal("powered") }}</h1>
   </footer>
 </template>
 
 <script>
 import SvgField from "@/components/svg/SvgField";
-import { useI18n } from "vue-i18n";
 export default {
   name: "Main",
   components: { SvgField },
-  setup() {
-    const { t } = useI18n({
-      inheritLocale: true,
-      useScope: "parent",
-    });
-    return { t };
+  inject: {
+    i18nTeaGlobal: {
+      type: Function,
+    },
   },
   data() {
     return {

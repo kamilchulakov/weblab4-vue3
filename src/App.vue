@@ -13,6 +13,16 @@
             :curr="tabName === 'about'"
             @click="this.tabName = 'about'"
           />
+          <Nava v-if="login"
+                :text="t('userPage')"
+                :curr="tabName === 'profile'"
+                @click="this.tabName = 'profile'"
+          />
+          <Nava v-if="!login"
+                :text="Login"
+                :curr="true"
+                @click="alert('login')"
+          />
         </div>
       </div>
     </nav>
@@ -42,6 +52,7 @@ import About from "@/components/About";
 import Nava from "@/components/NavButton";
 import { useI18n } from "vue-i18n";
 import { provide } from "vue";
+import Profile from "./components/Profile";
 export default {
   name: "App",
   components: { Nava, Main, About },
@@ -57,12 +68,14 @@ export default {
     return {
       tabName: "main",
       devMode: false,
+      login: true,
     };
   },
 
   computed: {
     tab() {
       if (this.tabName === "main") return Main;
+      else if (this.tabName === "profile") return Profile;
       else return About;
     },
   },

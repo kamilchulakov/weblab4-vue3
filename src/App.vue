@@ -64,20 +64,38 @@ export default {
     provide("i18nTeaGlobal", t);
     return { t };
   },
+  mounted() {
+    Object.entries(this.mapOfPages).forEach((pageName)=> {
+        if (window.location.href.indexOf(pageName[0]) > -1) {
+          this.tabName = pageName[0];
+        }
+      }
+    )
+  },
+
   data() {
     return {
       tabName: "main",
       devMode: false,
       login: true,
+      mapOfPages: {"main": Main, "form": Main, "profile": Profile, "about": About}
     };
   },
 
   computed: {
     tab() {
-      if (this.tabName === "main") return Main;
-      else if (this.tabName === "profile") return Profile;
-      else return About;
+      return this.mapOfPages[this.tabName];
     },
   },
+
+  watch: {
+    tabName() {
+      window.history.pushState(
+        null,
+        document.title,
+        `${this.tabName}`
+      );
+    }
+  }
 };
 </script>

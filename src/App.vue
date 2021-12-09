@@ -13,15 +13,23 @@
             :curr="tabName === 'about'"
             @click="this.tabName = 'about'"
           />
-          <Nava v-if="login"
-                :text="t('userPage')"
-                :curr="tabName === 'profile'"
-                @click="this.tabName = 'profile'"
+          <Nava
+            v-if="isLogin"
+            :text="t('userPage')"
+            :curr="tabName === 'profile'"
+            @click="this.tabName = 'profile'"
           />
-          <Nava v-if="!login"
-                :text="Login"
-                :curr="true"
-                @click="alert('login')"
+          <Nava
+            v-if="isLogin"
+            :text="t('logout')"
+            :curr="false"
+            @click="logout"
+          />
+          <Nava
+            v-if="!isLogin"
+            :text="t('login')"
+            :curr="false"
+            @click="login"
           />
         </div>
       </div>
@@ -65,20 +73,19 @@ export default {
     return { t };
   },
   mounted() {
-    Object.entries(this.mapOfPages).forEach((pageName)=> {
-        if (window.location.href.indexOf(pageName[0]) > -1) {
-          this.tabName = pageName[0];
-        }
+    Object.entries(this.mapOfPages).forEach((pageName) => {
+      if (window.location.href.indexOf(pageName[0]) > -1) {
+        this.tabName = pageName[0];
       }
-    )
+    });
   },
 
   data() {
     return {
       tabName: "main",
       devMode: false,
-      login: true,
-      mapOfPages: {"main": Main, "form": Main, "profile": Profile, "about": About}
+      isLogin: false,
+      mapOfPages: { main: Main, form: Main, profile: Profile, about: About },
     };
   },
 
@@ -90,12 +97,18 @@ export default {
 
   watch: {
     tabName() {
-      window.history.pushState(
-        null,
-        document.title,
-        `${this.tabName}`
-      );
-    }
+      window.history.pushState(null, document.title, `${this.tabName}`);
+    },
+  },
+
+  methods: {
+    login() {
+      this.isLogin = true;
+    },
+
+    logout() {
+      this.isLogin = false;
+    },
   }
 };
 </script>

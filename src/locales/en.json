@@ -9,5 +9,7 @@
   "inside": "Inside",
   "submit": "Submit",
   "clear": "Clear",
-  "userPage": "Profile"
+  "userPage": "Profile",
+  "login": "Login",
+  "logout": "Logout"
 }

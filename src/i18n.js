@@ -23,9 +23,11 @@ function loadLocaleMessages() {
   return messages;
 }
 
+const usrLocale = navigator.language.split("-")[0];
+
 export default createI18n({
   legacy: false,
-  locale: process.env.VUE_APP_I18N_LOCALE || "en" || "ru",
+  locale: usrLocale,
   fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "en",
   messages: loadLocaleMessages(),
 });

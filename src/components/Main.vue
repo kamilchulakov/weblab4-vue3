@@ -132,7 +132,11 @@
       </form>
     </div>
     <div class="min-h-full min-w-max">
-      <SvgField :svg-size="svgSize" @reset="console.log(this.sizeX)">
+      <SvgField
+        :svg-size="svgSize"
+        @reset="console.log(this.sizeX)"
+        @click="processSvgClick"
+      >
         <template v-if="formR">
           <circle
             r="3"
@@ -185,7 +189,7 @@
 
 <script>
 import SvgField from "@/components/svg/SvgField";
-import { getResults } from "@/api";
+import { addResult, getResults } from "@/api";
 export default {
   name: "Main",
   components: { SvgField },
@@ -268,6 +272,29 @@ export default {
 
     calcY(y) {
       return this.svgHalf - ((y * 2) / this.formR) * this.svgR;
+    },
+
+    async processSvgClick(event) {
+      if (!this.formR) this.validateByBorders(this.formR, "R", -5, 5);
+      else {
+        let rowX = event.offsetX;
+        let rowY = event.offsetY;
+        let X = (
+          ((this.formR / this.svgR) * (this.svgHalf - rowX) * -1) /
+          2
+        ).toFixed(3);
+        let Y = (
+          ((this.formR / this.svgR) * (this.svgHalf - rowY)) /
+          2
+        ).toFixed(3);
+        let res= await addResult({ x: X, y: Y, r: this.formR });
+          this.list.push({
+            x: res["x"],
+            y: res["y"],
+            r: res["r"],
+            inside: res["inside"],
+          });
+      }
     },
 
     async getAndSet() {

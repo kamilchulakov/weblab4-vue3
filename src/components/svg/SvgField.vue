@@ -158,14 +158,6 @@ export default {
     },
   },
 
-  mounted() {
-    // add event listener
-  },
-
-  beforeUnmount() {
-    // remove event listener
-  },
-
   computed: {
     svgR() {
       return this.svgSize / 6;

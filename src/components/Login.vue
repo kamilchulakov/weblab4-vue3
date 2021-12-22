@@ -38,6 +38,7 @@
             t("password")
           }}</span>
           <input
+            type="password"
             v-model="password"
             class="
               mb-4
@@ -112,8 +113,10 @@ export default {
   },
 
   methods: {
-    submitForm() {
-      if (login(this.login, this.password)) this.$emit('login');
+    async submitForm() {
+      this.errors = [];
+      if (await login(this.login, this.password)) this.$emit("login");
+      else this.errors.push("Invalid login or password");
     },
   },
 };

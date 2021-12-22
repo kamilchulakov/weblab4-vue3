@@ -16,8 +16,8 @@
             </ul>
           </template>
           <span class="text-black font-display font-bold">{{
-              t("login")
-            }}</span>
+            t("login")
+          }}</span>
           <input
             v-model.trim="login"
             class="
@@ -35,9 +35,10 @@
             "
           />
           <span class="text-black font-display font-bold">{{
-              t("password")
-            }}</span>
+            t("password")
+          }}</span>
           <input
+            type="password"
             v-model="password"
             class="
               mb-4
@@ -54,10 +55,11 @@
             "
           />
           <span class="text-black font-display font-bold">{{
-              t("password-again")
-            }}</span>
+            t("password-again")
+          }}</span>
           <input
-            v-model="password"
+            type="password"
+            v-model="password2"
             class="
               mb-4
               block
@@ -109,6 +111,7 @@
 <script>
 import CurrentTime from "@/components/CurrentTime";
 import { useI18n } from "vue-i18n";
+import { register } from "@/api";
 
 export default {
   name: "Register",
@@ -124,9 +127,25 @@ export default {
   data() {
     return {
       errors: [],
-      password: '',
-      login: '',
-    }
-  }
+      password: "",
+      password2: "",
+      login: "",
+    };
+  },
+
+  methods: {
+    async submitForm() {
+      this.errors = [];
+      if (this.password !== this.password2)
+        this.errors.push("Passwords are not equal.");
+      else {
+        const res = await register(this.login, this.password);
+        if (res) this.$emit("login");
+        else {
+          this.errors.push("Login already in use.");
+        }
+      }
+    },
+  },
 };
 </script>

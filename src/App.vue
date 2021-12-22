@@ -69,7 +69,7 @@ import { provide } from "vue";
 import Profile from "./components/Profile";
 import Register from "@/components/Register";
 import Login from "@/components/Login";
-import { isLogin } from "@/api";
+import { isLogin, removeToken } from "@/api";
 export default {
   name: "App",
   components: { Nava, Main, About, Login, Register },
@@ -125,8 +125,7 @@ export default {
 
     realLogin() {
       this.isLogin = true;
-      this.main = Main; // this is awful, this is where routing should be used :|
-      this.tabName = "main";
+      this.tabName = "profile";
     },
 
     register() {
@@ -134,8 +133,9 @@ export default {
     },
 
     logout() {
-      if (this.tabName === "profile") this.tabName = "main";
+      this.tabName = "login"; // bad but Main is not recreated
       this.isLogin = false;
+      removeToken();
     },
   },
 };

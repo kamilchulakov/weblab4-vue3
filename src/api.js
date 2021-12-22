@@ -42,9 +42,10 @@ export async function login(usr, password) {
 }
 
 export function isLogin() {
-  return localStorage.getItem(TOKEN_LS_KEY) !== null;
+  const value = localStorage.getItem(TOKEN_LS_KEY);
+  return value !== null;
 }
 
-export function logout() {
-  localStorage.setItem(TOKEN_LS_KEY, null);
+export function removeToken() {
+  localStorage.removeItem(TOKEN_LS_KEY);
 }

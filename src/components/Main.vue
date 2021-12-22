@@ -125,7 +125,7 @@
             focus:ring-gray-500
           "
           type="button"
-          @click.stop="list = []"
+          @click.stop="clear"
         >
           {{ i18nTeaGlobal("clear") }}
         </button>
@@ -189,7 +189,7 @@
 
 <script>
 import SvgField from "@/components/svg/SvgField";
-import { addResult, getResults } from "@/api";
+import { addResult, clearResults, getResults } from "@/api";
 export default {
   name: "Main",
   components: { SvgField },
@@ -255,12 +255,7 @@ export default {
       this.validateByBorders(this.formY, "Y", -3, 3);
       this.validateByBorders(this.formR, "R", -5, 5);
       if (this.errors.length === 0)
-        this.list.push({
-          x: this.formX,
-          y: this.formY,
-          r: this.formR,
-          inside: this.isInside(),
-        });
+        this.pushResult(this.formX, this.formY, this.formR);
     },
     isInside() {
       return true;
@@ -287,13 +282,7 @@ export default {
           ((this.formR / this.svgR) * (this.svgHalf - rowY)) /
           2
         ).toFixed(3);
-        let res= await addResult({ x: X, y: Y, r: this.formR });
-          this.list.push({
-            x: res["x"],
-            y: res["y"],
-            r: res["r"],
-            inside: res["inside"],
-          });
+        await this.pushResult(X, Y, this.formR);
       }
     },
 
@@ -316,6 +305,21 @@ export default {
         //else
         this.svgSize = 300;
       }
+    },
+
+    clear() {
+      clearResults();
+      this.list = [];
+    },
+
+    async pushResult(x, y, r) {
+      let res = await addResult({ x: x, y: y, r: r });
+      this.list.push({
+        x: res["x"],
+        y: res["y"],
+        r: res["r"],
+        inside: res["inside"],
+      });
     },
   },
   computed: {

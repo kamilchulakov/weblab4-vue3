@@ -20,6 +20,21 @@ export async function getResults() {
   return jsoned;
 }
 
+export async function addResult(result) {
+  const token = localStorage.getItem(TOKEN_LS_KEY);
+  const response = await fetch(RESULTS_ENDPOINT, {
+    method: "post",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(result),
+  });
+  const jsoned = await response.json();
+  return jsoned;
+}
+
 export async function login(usr, password) {
   const response = await fetch(LOGIN_ENDPOINT, {
     method: "post",
@@ -41,10 +56,26 @@ export async function login(usr, password) {
   return false;
 }
 
+export async function clearResults() {
+  const token = localStorage.getItem(TOKEN_LS_KEY);
+  const response = await fetch(RESULTS_ENDPOINT, {
+    method: "delete",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const jsoned = await response.json();
+  return await jsoned;
+}
+
+
 export function isLogin() {
   const value = localStorage.getItem(TOKEN_LS_KEY);
   return value !== null;
 }
+
 
 export function removeToken() {
   localStorage.removeItem(TOKEN_LS_KEY);

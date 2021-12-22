@@ -13,5 +13,6 @@
   "login": "Login",
   "logout": "Logout",
   "register": "Register",
-  "password": "Password"
+  "password": "Password",
+  "password-again": "Confirm Password"
 }

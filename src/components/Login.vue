@@ -90,6 +90,7 @@
 <script>
 import CurrentTime from "@/components/CurrentTime";
 import { useI18n } from "vue-i18n";
+import { login } from "@/api";
 
 export default {
   name: "Login",
@@ -112,7 +113,7 @@ export default {
 
   methods: {
     submitForm() {
-      console.log("OK");
+      if (login(this.login, this.password)) this.$emit('login');
     },
   },
 };

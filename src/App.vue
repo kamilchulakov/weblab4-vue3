@@ -58,7 +58,7 @@
       Developer Mode
     </label>
   </header>
-  <component :is="tab" :devMode="devMode" />
+  <component :is="tab" :devMode="devMode" @login="realLogin" />
 </template>
 <script>
 import Main from "./components/Main.vue";
@@ -69,6 +69,7 @@ import { provide } from "vue";
 import Profile from "./components/Profile";
 import Register from "@/components/Register";
 import Login from "@/components/Login";
+import { isLogin } from "@/api";
 export default {
   name: "App",
   components: { Nava, Main, About, Login, Register },
@@ -86,6 +87,7 @@ export default {
         this.tabName = pageName[0];
       }
     });
+    this.isLogin = isLogin();
   },
 
   data() {
@@ -93,7 +95,14 @@ export default {
       tabName: "main",
       devMode: false,
       isLogin: false,
-      mapOfPages: { main: Main, form: Main, profile: Profile, about: About, login: Login, register: Register },
+      mapOfPages: {
+        main: Main,
+        form: Main,
+        profile: Profile,
+        about: About,
+        login: Login,
+        register: Register,
+      },
     };
   },
 
@@ -112,7 +121,12 @@ export default {
   methods: {
     login() {
       this.tabName = "login";
-      //this.isLogin = true;
+    },
+
+    realLogin() {
+      this.isLogin = true;
+      this.main = Main; // this is awful, this is where routing should be used :|
+      this.tabName = "main";
     },
 
     register() {

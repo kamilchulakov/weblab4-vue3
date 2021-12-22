@@ -185,6 +185,7 @@
 
 <script>
 import SvgField from "@/components/svg/SvgField";
+import { getResults } from "@/api";
 export default {
   name: "Main",
   components: { SvgField },
@@ -201,11 +202,11 @@ export default {
       svgSize: 0,
       errors: [],
       list: [
-        { x: 1, y: 1, r: 1, inside: true },
-        { x: 2, y: 1, r: 1, inside: false },
-        { x: 2, y: 4, r: 1, inside: true },
-        { x: 3, y: 1, r: 1, inside: true },
-        { x: 4, y: 1, r: 1, inside: true },
+        // { x: 1, y: 1, r: 1, inside: true },
+        // { x: 2, y: 1, r: 1, inside: false },
+        // { x: 2, y: 4, r: 1, inside: true },
+        // { x: 3, y: 1, r: 1, inside: true },
+        // { x: 4, y: 1, r: 1, inside: true },
       ],
     };
   },
@@ -216,6 +217,10 @@ export default {
       required: true,
       default: false,
     },
+  },
+
+  created() {
+    this.getAndSet();
   },
 
   mounted() {
@@ -263,6 +268,18 @@ export default {
 
     calcY(y) {
       return this.svgHalf - ((y * 2) / this.formR) * this.svgR;
+    },
+
+    async getAndSet() {
+      const servedResults = await getResults();
+      Array.from(servedResults).forEach((res) =>
+        this.list.push({
+          x: res["x"],
+          y: res["y"],
+          r: res["r"],
+          inside: res["inside"],
+        })
+      );
     },
 
     onResize() {

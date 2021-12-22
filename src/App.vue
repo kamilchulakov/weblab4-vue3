@@ -28,8 +28,14 @@
           <Nava
             v-if="!isLogin"
             :text="t('login')"
-            :curr="false"
+            :curr="tabName === 'login'"
             @click="login"
+          />
+          <Nava
+            v-if="!isLogin"
+            :text="t('register')"
+            :curr="tabName === 'register'"
+            @click="register"
           />
         </div>
       </div>
@@ -61,9 +67,11 @@ import Nava from "@/components/NavButton";
 import { useI18n } from "vue-i18n";
 import { provide } from "vue";
 import Profile from "./components/Profile";
+import Register from "@/components/Register";
+import Login from "@/components/Login";
 export default {
   name: "App",
-  components: { Nava, Main, About },
+  components: { Nava, Main, About, Login, Register },
   setup() {
     const { t } = useI18n({
       inheritLocale: true,
@@ -85,7 +93,7 @@ export default {
       tabName: "main",
       devMode: false,
       isLogin: false,
-      mapOfPages: { main: Main, form: Main, profile: Profile, about: About },
+      mapOfPages: { main: Main, form: Main, profile: Profile, about: About, login: Login, register: Register },
     };
   },
 
@@ -103,12 +111,18 @@ export default {
 
   methods: {
     login() {
-      this.isLogin = true;
+      this.tabName = "login";
+      //this.isLogin = true;
+    },
+
+    register() {
+      this.tabName = "register";
     },
 
     logout() {
+      if (this.tabName === "profile") this.tabName = "main";
       this.isLogin = false;
     },
-  }
+  },
 };
 </script>

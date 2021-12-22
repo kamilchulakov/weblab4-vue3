@@ -11,5 +11,7 @@
   "clear": "Clear",
   "userPage": "Profile",
   "login": "Login",
-  "logout": "Logout"
+  "logout": "Logout",
+  "register": "Register",
+  "password": "Password"
 }

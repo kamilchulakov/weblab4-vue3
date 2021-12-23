@@ -65,7 +65,7 @@ import Main from "./components/Main.vue";
 import About from "@/components/About";
 import Nava from "@/components/NavButton";
 import { useI18n } from "vue-i18n";
-import { provide } from "vue";
+import { provide, reactive } from "vue";
 import Profile from "./components/Profile";
 import Register from "@/components/Register";
 import Login from "@/components/Login";
@@ -82,27 +82,31 @@ export default {
     return { t };
   },
   mounted() {
+    this.isLogin = isLogin();
     Object.entries(this.mapOfPages).forEach((pageName) => {
       if (window.location.href.indexOf(pageName[0]) > -1) {
         this.tabName = pageName[0];
+        if (!this.isLogin && this.tabName === "main") {
+          console.log("shit");
+          this.tabName = "login";
+        }
       }
     });
-    this.isLogin = isLogin();
   },
 
   data() {
     return {
-      tabName: "main",
+      tabName: "login",
       devMode: false,
       isLogin: false,
-      mapOfPages: {
-        main: Main,
-        form: Main,
-        profile: Profile,
-        about: About,
-        login: Login,
-        register: Register,
-      },
+      mapOfPages: reactive({
+        main: reactive(Main),
+        form: reactive(Main),
+        profile: reactive(Profile),
+        about: reactive(About),
+        login: reactive(Login),
+        register: reactive(Register),
+      }),
     };
   },
 
@@ -114,6 +118,10 @@ export default {
 
   watch: {
     tabName() {
+      if (!this.isLogin && this.tabName === "main") {
+        console.log("shit");
+        this.tabName = "login";
+      }
       window.history.pushState(null, document.title, `${this.tabName}`);
     },
   },

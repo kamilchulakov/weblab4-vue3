@@ -164,6 +164,7 @@
             <th>Y</th>
             <th>R</th>
             <th>{{ i18nTeaGlobal("inside") }}</th>
+            <th> Exec time</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
@@ -177,6 +178,7 @@
             <td>{{ point.y }}</td>
             <td>{{ point.r }}</td>
             <td>{{ i18nTeaGlobal(point.inside ? "true" : "false") }}</td>
+            <td>{{ point.execTime }}</td>
           </tr>
         </tbody>
       </table>
@@ -223,8 +225,8 @@ export default {
     },
   },
 
-  created() {
-    this.getAndSet();
+  async created() {
+    await this.getAndSet();
   },
 
   mounted() {
@@ -257,9 +259,6 @@ export default {
       if (this.errors.length === 0)
         this.pushResult(this.formX, this.formY, this.formR);
     },
-    isInside() {
-      return true;
-    },
 
     calcX(x) {
       return ((x * 2) / this.formR) * this.svgR + this.svgHalf;
@@ -270,18 +269,21 @@ export default {
     },
 
     async processSvgClick(event) {
-      if (!this.formR) this.validateByBorders(this.formR, "R", -5, 5);
-      else {
-        let rowX = event.offsetX;
-        let rowY = event.offsetY;
-        let X = (
-          ((this.formR / this.svgR) * (this.svgHalf - rowX) * -1) /
-          2
-        ).toFixed(3);
-        let Y = (
-          ((this.formR / this.svgR) * (this.svgHalf - rowY)) /
-          2
-        ).toFixed(3);
+      this.errors = [];
+      let rowX = event.offsetX;
+      let rowY = event.offsetY;
+      let X = (
+        ((this.formR / this.svgR) * (this.svgHalf - rowX) * -1) /
+        2
+      ).toFixed(3);
+      let Y = (((this.formR / this.svgR) * (this.svgHalf - rowY)) / 2).toFixed(
+        3
+      );
+      // Text (-5 ... 5) для координаты по оси X, Text (-3 ... 3) для координаты по оси Y, и Text (-5 ... 5) для задания радиуса области.
+      this.validateByBorders(X, "X", -5, 5);
+      this.validateByBorders(Y, "Y", -3, 3);
+      this.validateByBorders(this.formR, "R", -5, 5);
+      if (this.errors.length === 0) {
         await this.pushResult(X, Y, this.formR);
       }
     },
@@ -293,9 +295,16 @@ export default {
           x: res["x"],
           y: res["y"],
           r: res["r"],
-          inside: res["inside"],
+          inside: this.hotFix(res["x"], res["y"], res["r"], res["inside"]),
+          execTime: res["executionMs"],
         })
       );
+    },
+
+    hotFix(x, y, r, inside) {
+      if ((x >= 0 && y >= 0) || x <= 0) return inside;
+      console.log(-Math.abs(r) + x);
+      return x >= 0 && y <= 0 && 2 * y >= -Math.abs(r) + x;
     },
 
     onResize() {
@@ -318,8 +327,32 @@ export default {
         x: res["x"],
         y: res["y"],
         r: res["r"],
-        inside: res["inside"],
+        inside: this.hotFix(res["x"], res["y"], res["r"], res["inside"]),
+        execTime: res["executionMs"],
       });
+    },
+
+    isInRect(data, r) {
+      return data.x <= r && data.y <= r && data.x >= 0 && data.y >= 0;
+    },
+
+    isInPoly(data, r) {
+      if (r < 0) r = r * -1;
+      return data.x >= 0 && data.y <= 0 && 2 * data.y >= -1 * r + data.x;
+    },
+
+    isInCirc(data, r) {
+      return (
+        data.x <= 0 && data.y >= 0 && data.x ** 2 + data.y ** 2 <= (r * r) / 4
+      );
+    },
+
+    insideNewR(x, y, r) {
+      return (
+        this.isInRect({ x: x, y: y, r: r }, r) ||
+        this.isInCirc({ x: x, y: y, r: r }, r) ||
+        this.isInPoly({ x: x, y: y, r: r }, r)
+      );
     },
   },
   computed: {
@@ -354,6 +387,21 @@ export default {
           this.formR = this.formR[0];
         }
       }
+      this.validateByBorders(this.formR, "R", -5, 5);
+      if (this.errors.length === 0) {
+        const newList = [];
+        this.list.forEach((res) =>
+          newList.push({
+            x: res["x"],
+            y: res["y"],
+            r: res["r"],
+            inside: this.insideNewR(res["x"], res["y"], this.formR),
+            execTime: res["execTime"],
+          })
+        );
+        this.list = newList;
+      }
+      this.errors = [];
     },
   },
 };

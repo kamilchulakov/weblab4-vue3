@@ -217,6 +217,7 @@ export default {
     };
   },
 
+
   props: {
     devMode: {
       type: Boolean,
@@ -238,6 +239,7 @@ export default {
 
   beforeUnmount() {
     window.removeEventListener("resize", this.onResize);
+
   },
 
   methods: {

@@ -4,17 +4,17 @@
 ```
 [x] Nice validation 
 [x] Tabs Navigation
-[ ] Local Storage
-[ ] URL Handling
+[x] Local Storage
+[x] URL Handling
 [x] Developer Mode (for big R)
 [x] Github Page
 [x] Dynamic SVG rerender
 [x] Redraw on R change
 [x] i18n
-[ ] Auth + Auth Page
+[x] Auth + Auth Page
 [ ] Shared Worker for Network
 [ ] Refactor: replaces, components
-[ ] Use variant screen resolutions
+[x] Use flex screen
 ```
 
 ## Project setup

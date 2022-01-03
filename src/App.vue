@@ -4,36 +4,36 @@
       <div class="container px-4 mx-auto md:flex md:items-center flex-shrink-0">
         <div class="flex-col mt-3 md:mt-0" id="navbar-collapse">
           <Nava
-            :text="t('main')"
+            :text="$t('main')"
             :curr="tabName === 'main'"
             @click="this.tabName = 'main'"
           />
           <Nava
-            :text="t('about')"
+            :text="$t('about')"
             :curr="tabName === 'about'"
             @click="this.tabName = 'about'"
           />
           <Nava
             v-if="isLogin"
-            :text="t('userPage')"
+            :text="$t('userPage')"
             :curr="tabName === 'profile'"
             @click="this.tabName = 'profile'"
           />
           <Nava
             v-if="isLogin"
-            :text="t('logout')"
+            :text="$t('logout')"
             :curr="false"
             @click="logout"
           />
           <Nava
             v-if="!isLogin"
-            :text="t('login')"
+            :text="$t('login')"
             :curr="tabName === 'login'"
             @click="login"
           />
           <Nava
             v-if="!isLogin"
-            :text="t('register')"
+            :text="$t('register')"
             :curr="tabName === 'register'"
             @click="register"
           />
@@ -64,8 +64,7 @@
 import Main from "./components/Main.vue";
 import About from "@/components/About";
 import Nava from "@/components/NavButton";
-import { useI18n } from "vue-i18n";
-import { provide, reactive } from "vue";
+import { reactive } from "vue";
 import Profile from "./components/Profile";
 import Register from "@/components/Register";
 import Login from "@/components/Login";
@@ -73,14 +72,6 @@ import { isLogin, removeToken } from "@/api";
 export default {
   name: "App",
   components: { Nava, Main, About, Login, Register },
-  setup() {
-    const { t } = useI18n({
-      inheritLocale: true,
-      useScope: "global",
-    });
-    provide("i18nTeaGlobal", t);
-    return { t };
-  },
   mounted() {
     this.isLogin = isLogin();
     Object.entries(this.mapOfPages).forEach((pageName) => {

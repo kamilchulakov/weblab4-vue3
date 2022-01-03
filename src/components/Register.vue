@@ -16,7 +16,7 @@
             </ul>
           </template>
           <span class="text-black font-display font-bold">{{
-            t("login")
+            $t("login")
           }}</span>
           <input
             v-model.trim="login"
@@ -35,7 +35,7 @@
             "
           />
           <span class="text-black font-display font-bold">{{
-            t("password")
+            $t("password")
           }}</span>
           <input
             type="password"
@@ -55,7 +55,7 @@
             "
           />
           <span class="text-black font-display font-bold">{{
-            t("password-again")
+            $t("password-again")
           }}</span>
           <input
             type="password"
@@ -100,7 +100,7 @@
             type="button"
             @click.stop="submitForm()"
           >
-            {{ t("register") }}
+            {{ $t("register") }}
           </button>
         </form>
       </center>
@@ -110,19 +110,11 @@
 
 <script>
 import CurrentTime from "@/components/CurrentTime";
-import { useI18n } from "vue-i18n";
 import { register } from "@/api";
 
 export default {
   name: "Register",
   components: { CurrentTime },
-  setup() {
-    const { t } = useI18n({
-      inheritLocale: true,
-      useScope: "local",
-    });
-    return { t };
-  },
 
   data() {
     return {

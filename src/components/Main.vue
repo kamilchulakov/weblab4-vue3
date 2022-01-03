@@ -5,7 +5,7 @@
     <div class="flex-grow bg-empty-block min-h-full">
       <div class="text-center bg-white p-6">
         <span class="text-4xl font-bold text-black">{{
-          i18nTeaGlobal("form")
+          $t("form")
         }}</span>
       </div>
     </div>
@@ -18,7 +18,7 @@
           </ul>
         </template>
         <span class="text-white font-body font-bold"
-          >{{ i18nTeaGlobal("type") }} X</span
+          >{{ $t("type") }} X</span
         >
         <input
           v-model.trim="formX"
@@ -37,7 +37,7 @@
           "
         />
         <span class="text-white font-body font-bold"
-          >{{ i18nTeaGlobal("type") }} Y</span
+          >{{ $t("type") }} Y</span
         >
         <input
           v-model.trim="formY"
@@ -56,7 +56,7 @@
           "
         />
         <span class="text-white font-body font-bold"
-          >{{ i18nTeaGlobal("type") }} R</span
+          >{{ $t("type") }} R</span
         >
         <input
           v-model.trim="formR"
@@ -101,7 +101,7 @@
           type="button"
           @click.stop="submitForm()"
         >
-          {{ i18nTeaGlobal("submit") }}
+          {{ $t("submit") }}
         </button>
         <button
           class="
@@ -127,7 +127,7 @@
           type="button"
           @click.stop="clear"
         >
-          {{ i18nTeaGlobal("clear") }}
+          {{ $t("clear") }}
         </button>
       </form>
     </div>
@@ -163,7 +163,7 @@
             <th>X</th>
             <th>Y</th>
             <th>R</th>
-            <th>{{ i18nTeaGlobal("inside") }}</th>
+            <th>{{ $t("inside") }}</th>
             <th> Exec time</th>
           </tr>
         </thead>
@@ -177,7 +177,7 @@
             <td>{{ point.x }}</td>
             <td>{{ point.y }}</td>
             <td>{{ point.r }}</td>
-            <td>{{ i18nTeaGlobal(point.inside ? "true" : "false") }}</td>
+            <td>{{ $t(point.inside ? "true" : "false") }}</td>
             <td>{{ point.execTime }}</td>
           </tr>
         </tbody>
@@ -185,7 +185,7 @@
     </div>
   </div>
   <footer>
-    <h1>{{ i18nTeaGlobal("powered") }}</h1>
+    <h1>{{ $t("powered") }}</h1>
   </footer>
 </template>
 
@@ -195,11 +195,6 @@ import { addResult, clearResults, getResults } from "@/api";
 export default {
   name: "Main",
   components: { SvgField },
-  inject: {
-    i18nTeaGlobal: {
-      type: Function,
-    },
-  },
   data() {
     return {
       formX: undefined,
@@ -236,6 +231,8 @@ export default {
       window.addEventListener("resize", this.onResize);
     });
   },
+
+
 
   beforeUnmount() {
     window.removeEventListener("resize", this.onResize);

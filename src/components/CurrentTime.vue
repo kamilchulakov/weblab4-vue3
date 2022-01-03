@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white" style= "text-align:center;">
+  <div class="bg-white" style="text-align: center">
     <h1 class="font-display">{{ timestamp }}</h1>
   </div>
 </template>
@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       timestamp: "",
-    }
+    };
   },
   created() {
     this.getNow();

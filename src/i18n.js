@@ -28,6 +28,7 @@ const usrLocale = navigator.language.split("-")[0];
 export default createI18n({
   legacy: false,
   locale: usrLocale,
+  globalInjection: true,
   fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "en",
   messages: loadLocaleMessages(),
 });

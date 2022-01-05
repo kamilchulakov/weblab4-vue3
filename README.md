@@ -13,8 +13,9 @@
 [x] i18n
 [x] Auth + Auth Page
 [ ] Shared Worker for Network
-[ ] Refactor: replaces, components
+[ ] BroadcastChannel for Sharing data between tabs
 [x] Use flex screen
+[ ] Async components (Main loads async data -> needs animation or async stuff)
 ```
 
 ## Project setup

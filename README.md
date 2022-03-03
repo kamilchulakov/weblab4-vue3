@@ -4,7 +4,7 @@
 ```
 Doesn't have any backend or backend implementation. So it is quite bad.
 ```
-https://ulyanovskk.github.io/weblab4-vue3/
+https://kamilchulakov.github.io/weblab4-vue3/
 
 
 ## To-DO
